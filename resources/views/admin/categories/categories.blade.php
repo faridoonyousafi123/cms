@@ -6,7 +6,12 @@
 
 <div class="card">
         <div class="card-body">
-          <table class="table table-hover">
+
+        <table class="table table-hover">
+
+                <h5 class="card-title">
+                        <a href="{{ route('category.create') }}" style="float:right;"><button class="btn btn-success">Create Categries</button></a>
+                </h5>
 
       <thead class="text-center">
 

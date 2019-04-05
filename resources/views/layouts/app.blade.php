@@ -86,7 +86,7 @@
 
                                 <li class="list-group-item">
 
-                                    <a href="{{ route('category.create') }}">Create Categries</a>
+
 
                                 </li>
 
