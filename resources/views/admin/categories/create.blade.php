@@ -13,9 +13,9 @@
 
         <div class="card-body">
 
-            <form action="{{ isset($category) ? route('category.update', $category->id ) : route('category.store') }}" method="post">
+            <form action="{{ isset($category) ? route('category.update', $category->id ) : route('category.store') }}" method="POST">
 
-                {{ csrf_field() }}
+                @csrf
 
                 <div class="form-group">
 

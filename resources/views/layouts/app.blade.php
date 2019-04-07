@@ -92,7 +92,7 @@
 
                                 <li class="list-group-item">
 
-                                        <a href="{{ route('categories.index') }}">Categries</a>
+                                        <a href="{{ route('categories') }}">Categries</a>
 
                                 </li>
                         </div>
@@ -110,5 +110,8 @@
 
         </main>
     </div>
+
+    @yield('scripts')
+
 </body>
 </html>

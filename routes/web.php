@@ -35,10 +35,10 @@ Route::post('category/store', [
 ]);
 
 
-Route::get('category/index', [
+Route::get('categories', [
 
     'uses' => 'CategoriesController@index',
-    'as' => 'categories.index'
+    'as' => 'categories'
 ]);
 
 
@@ -58,8 +58,11 @@ Route::post('category/update/{id}', [
 ]);
 
 
-Route::get('category/delete/{id}', [
-
+Route::post('category/{id}', [
     'uses' => 'CategoriesController@destroy',
     'as' => 'category.delete'
 ]);
+
+
+Route::resource('post');
+
