@@ -64,5 +64,5 @@ Route::post('category/{id}', [
 ]);
 
 
-Route::resource('post');
+Route::resource('posts', 'PostsController');
 
