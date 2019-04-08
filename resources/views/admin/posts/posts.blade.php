@@ -3,13 +3,11 @@
 
 @section('content')
 
+<div class="d-flex justify-content-end mb-2">
+    <a href="{{ route('posts.create') }}" style="float:right;"><button class="btn btn-success">Create a Post</button></a>
+</div>
 
 <div class="card">
-
-
-        <h5 class="card-title">
-                <a href="{{ route('posts.create') }}" style="float:right;"><button class="btn btn-success">Add Post</button></a>
-        </h5>
 
         <div class="card-body">
 

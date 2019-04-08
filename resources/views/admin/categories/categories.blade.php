@@ -2,14 +2,11 @@
 
 
 @section('content')
-
+<div class="d-flex justify-content-end mb-2">
+        <a href="{{ route('category.create') }}" style="float:right;"><button class="btn btn-success">Create a Category</button></a>
+</div>
 
 <div class="card">
-
-
-        <h5 class="card-title">
-                <a href="{{ route('category.create') }}" style="float:right;"><button class="btn btn-success">Create Category</button></a>
-        </h5>
 
         <div class="card-body">
 
