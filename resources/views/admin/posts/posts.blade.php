@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="d-flex justify-content-end mb-2">
+<div class="d-flex justify-content-end p-2">
     <a href="{{ route('posts.create') }}" style="float:right;"><button class="btn btn-success">Create a Post</button></a>
 </div>
 
@@ -29,7 +29,13 @@
 
             <th>
 
-                Description
+                Edit
+
+            </th>
+
+            <th>
+
+                    Trash
 
             </th>
 
@@ -41,7 +47,7 @@
               <tr>
 
                 <td>
-                     <img src="{{ asset('storage/' . $post->image) }}" alt="">
+                     <img height="50px" width="60px" src="{{ asset('storage/' . $post->image) }}" alt="">
                 </td>
 
                   <td>
@@ -49,18 +55,13 @@
                   </td>
 
                   <td>
-                    {{ $post->description }}
-                </td>
+                        <a href="{{ route('posts.edit', ['id' => $post->id ]) }}" class="btn btn-xs btn-info">Edit</a>
+                 </td>
 
-                  {{--  <td>
-                    <a href="{{ route('posts.edit', ['id' => $post->id ]) }}" class="btn btn-xs btn-info">
-                        <i class="far fa-edit" style="color:white;"></i>
-                    </a>
+                   <td>
+                        <button class="btn btn-xs btn-danger" onclick="handleDelete({{ $post->id }})">Trash</button>
                   </td>
 
-                  <td>
-                        <button class="btn btn-danger" onclick="handleDelete({{ $post->id }})">Delete</button>
-                  </td>  --}}
 
               </tr>
 

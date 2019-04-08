@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="d-flex justify-content-end mb-2">
+<div class="d-flex justify-content-end p-2">
         <a href="{{ route('category.create') }}" style="float:right;"><button class="btn btn-success">Create a Category</button></a>
 </div>
 
