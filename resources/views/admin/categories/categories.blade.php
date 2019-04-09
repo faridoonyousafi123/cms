@@ -44,7 +44,7 @@
 
                   <td>
                     <a href="{{ route('category.edit', ['id' => $category->id ]) }}" class="btn btn-xs btn-info">
-                        <i class="far fa-edit" style="color:white;"></i>
+                        Edit
                     </a>
                   </td>
 

@@ -100,7 +100,13 @@
 
                                     <a href="{{ route('posts.index') }}">Posts</a>
 
-                            </li>
+                                </li>
+
+                                <li class="list-group-item">
+
+                                    <a href="{{ route('trashed-posts.index') }}">Trashed Posts</a>
+
+                                </li>
                         </div>
                         @endif
 

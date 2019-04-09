@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostRequest;
 use App\Post;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostsController extends Controller
 {
@@ -74,6 +76,10 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::find($id);
+        return view('admin.posts.create')->with('post', $post);
+
+
     }
 
     /**
@@ -97,5 +103,30 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::withTrashed()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        if($post->trashed()) {
+            Storage::delete($post->image);
+            $post->forceDelete();
+
+        }   else {
+
+            $post->delete();
+        }
+
+
+        return redirect()->back();
+
+    }
+
+    public function trashed() {
+
+        $trashed = Post::withTrashed()->get();
+
+        return view('admin.posts.posts')->with('posts', $trashed);
+
     }
 }
+

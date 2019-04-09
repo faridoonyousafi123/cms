@@ -9,71 +9,84 @@
 
 <div class="card">
 
-        <div class="card-body">
+    <div class="card-body">
 
-        <table class="table table-hover">
+    @if ($posts->count() > 0)
 
-      <thead class="text-center">
+    <table class="table table-hover">
 
-          <th>
+            <thead class="text-center">
 
-               Image
+                <th>
 
-          </th>
+                     Image
 
-          <th>
+                </th>
 
-                Title
+                <th>
 
-            </th>
+                      Title
 
-            <th>
+                  </th>
 
-                Edit
+                  <th>
 
-            </th>
+                      Edit
 
-            <th>
+                  </th>
 
-                    Trash
+                  <th>
 
-            </th>
+                          Trash
 
-      </thead>
+                  </th>
 
-      <tbody class="text-center">
-          @foreach($posts as $post)
+            </thead>
 
-              <tr>
+            <tbody class="text-center">
+                @foreach($posts as $post)
 
-                <td>
-                     <img height="50px" width="60px" src="{{ asset('storage/' . $post->image) }}" alt="">
-                </td>
+                    <tr>
 
-                  <td>
-                      {{ $post->title }}
-                  </td>
+                      <td>
+                           <img height="50px" width="60px" src="{{ asset('storage/' . $post->image) }}" alt="">
+                      </td>
 
-                  <td>
-                        <a href="{{ route('posts.edit', ['id' => $post->id ]) }}" class="btn btn-xs btn-info">Edit</a>
-                 </td>
+                        <td>
+                            {{ $post->title }}
+                        </td>
 
-                   <td>
-                        <button class="btn btn-xs btn-danger" onclick="handleDelete({{ $post->id }})">Trash</button>
-                  </td>
+                        <td>
+                            @if (!$post->trashed())
+                              <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-xs btn-info">Edit</a>
+                            @endif
+
+                       </td>
+
+                         <td>
+                              <button class="btn btn-xs btn-danger" onclick="handleDelete({{ $post->id }})">
+                                  {{ $post->trashed() ? 'Delete' : 'Trash' }}
+                              </button>
+                        </td>
 
 
-              </tr>
+                    </tr>
 
-          @endforeach
+                @endforeach
 
-      </tbody>
+            </tbody>
 
-      </table>
+            </table>
+    @else
 
-<!-- Modal -->
+            <h3>No posts found !</h3>
+
+    @endif
+
+    <!-- Modal -->
         <form action="" method="POST" id="deleteForm">
             @csrf
+            @method('DELETE')
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -84,7 +97,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure to delete this category?</p>
+                        <p>Are you sure to delete the post @isset($post)
+                            "{{ $post->title }}"
+                        @endisset ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

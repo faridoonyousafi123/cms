@@ -66,3 +66,5 @@ Route::post('category/{id}', [
 
 Route::resource('posts', 'PostsController');
 
+Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.index');
+
