@@ -19,25 +19,31 @@
 
                 <th>
 
-                     Image
+                        Image
 
                 </th>
 
                 <th>
 
-                      Title
+                        Title
 
                   </th>
 
                   <th>
 
-                      Edit
+                        Published At
 
                   </th>
 
                   <th>
 
-                          Trash
+                        Edit
+
+                  </th>
+
+                  <th>
+
+                        Trash
 
                   </th>
 
@@ -54,6 +60,10 @@
 
                         <td>
                             {{ $post->title }}
+                        </td>
+
+                        <td>
+                                {{ $post->published_at }}
                         </td>
 
                         <td>

@@ -50,6 +50,7 @@ class PostsController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
+            'published_at' => $request->published_at,
 
             ]);
 

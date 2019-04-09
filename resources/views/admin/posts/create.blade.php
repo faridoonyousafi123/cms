@@ -26,27 +26,28 @@
                 <div class="form-group">
 
                     <label for="description">Description</label>
-                    <input type="text" name="description" value="{{ isset($post) ? $post->description : '' }}" class="form-control">
+                    <textarea name="description" class="form-control">{{ isset($post) ? $post->description : '' }} </textarea>
                 </div>
 
                 <div class="form-group">
 
                     <label for="content">Content</label>
-                    <input type="text" name="content" value="{{ isset($post) ? $post->content : '' }}" class="form-control">
+                    <input id="content" type="hidden" name="content">
+                    <trix-editor input="content"></trix-editor>
                 </div>
 
 
                 <div class="form-group">
 
                     <label for="content">Published At</label>
-                    <input type="text" name="published_at" value="{{ isset($post) ? $post->published_at : '' }}" class="form-control">
+                    <input type="text" name="published_at" id="published_at" value="{{ isset($post) ? $post->published_at : '' }}" class="form-control">
                 </div>
 
 
                 <div class="form-group">
 
                     <label for="image">Image</label>
-                    <input type="file" name="image" value="" class="form-control">
+                    <input type="file" name="image" value="" class="form-control" />
                 </div>
 
                  <div class="form-group">
@@ -66,6 +67,25 @@
         </div>
     </div>
 
-
-
 @stop
+
+@section('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.0/trix.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+        flatpickr("#published_at", {
+
+            enableTime:true
+        });
+</script>
+
+@endsection
+
+
+@section('css')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.0/trix.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@stop
+
