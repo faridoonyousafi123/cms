@@ -38,13 +38,19 @@
                         {{ $post->published_at }}
                     </td>
                     <td>
-                        @if (!$post->trashed())
+                        @if ($post->trashed())
+                            <form action="{{ route('restore-post', $post->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-xs btn-info">Restore</button>
+                            </form>
+                        @else
                             <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-xs btn-info">Edit</a>
                         @endif
                     </td>
                     <td>
                         <button class="btn btn-xs btn-danger" onclick="handleDelete({{ $post->id }})">
-                                  {{ $post->trashed() ? 'Delete' : 'Trash' }}
+                                  {{ !$post->trashed() ? 'Trash' : 'Delete' }}
                         </button>
                     </td>
                 </tr>
@@ -67,11 +73,19 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure to delete the post @isset($post) "{{ $post->title }}" @endisset ?</p>
+                            <p>Are you sure to delete the post
+                                @isset($post)
+                                    "{{ $post->title }}"
+                                @endisset ?
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">
+                                @isset($post)
+                                    {{ !$post->trashed() ? 'Trash' : 'Delete' }}
+                                @endisset
+                            </button>
                         </div>
                     </div>
                 </div>

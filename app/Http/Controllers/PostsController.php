@@ -88,7 +88,7 @@ class PostsController extends Controller
         $data = $request->only(['title', 'description', 'content', 'published_at']);
         if($request->hasFile('image')) {
             $image = $request->image->store('posts');
-            Storage::delete($post->image);
+            $post->deleteImage();
             $data['image'] = $image;
         }
         $post->update($data);
@@ -108,7 +108,7 @@ class PostsController extends Controller
             ->where('id', $id)
             ->firstOrFail();
         if($post->trashed()) {
-            Storage::delete($post->image);
+            $post->deleteImage();
             $post->forceDelete();
         }   else {
             $post->delete();
@@ -118,8 +118,16 @@ class PostsController extends Controller
 
     public function trashed() {
 
-        $trashed = Post::withTrashed()->get();
+        $trashed = Post::onlyTrashed()->get();
         return view('admin.posts.posts')->with('posts', $trashed);
+    }
+
+    public function restore($id) {
+        $post = Post::withTrashed()
+            ->where('id', $id)
+            ->firstOrFail();
+        $post->restore();
+        return redirect()->back();
     }
 }
 
