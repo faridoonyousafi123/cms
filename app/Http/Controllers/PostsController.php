@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostRequest;
 use App\Post;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Requests\Posts\UpdatePostRequest;
+use Illuminate\Support\Facades\Session;
 
 class PostsController extends Controller
 {
@@ -41,19 +42,14 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         //
-
         $image = $request->image->store('posts');
-
         Post::create([
-
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
             'published_at' => $request->published_at,
-
             ]);
-
             return redirect()->route('posts.index');
     }
 
@@ -76,11 +72,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
         $post = Post::find($id);
         return view('admin.posts.create')->with('post', $post);
-
-
     }
 
     /**
@@ -90,9 +83,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->only(['title', 'description', 'content', 'published_at']);
+        if($request->hasFile('image')) {
+            $image = $request->image->store('posts');
+            Storage::delete($post->image);
+            $data['image'] = $image;
+        }
+        $post->update($data);
+        Session::flash('success', 'Post updated successfully');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -103,31 +104,22 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
         $post = Post::withTrashed()
             ->where('id', $id)
             ->firstOrFail();
-
         if($post->trashed()) {
             Storage::delete($post->image);
             $post->forceDelete();
-
         }   else {
-
             $post->delete();
         }
-
-
         return redirect()->back();
-
     }
 
     public function trashed() {
 
         $trashed = Post::withTrashed()->get();
-
         return view('admin.posts.posts')->with('posts', $trashed);
-
     }
 }
 
