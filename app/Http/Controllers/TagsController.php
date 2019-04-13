@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Requests\Categories\CreateCategoryRequest;
-use App\Http\Requests\Categories\UpdateCategoryRequest;
-use Symfony\Component\HttpFoundation\Session\Session;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +14,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-
-        return view('admin.categories.categories')->with('categories', Category::all());
+        return view('admin.tags.tags')->with('tags', Tag::all());
     }
 
     /**
@@ -30,7 +25,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
-        return view('admin.categories.create');
+        return view('admin.tags.index');
     }
 
     /**
@@ -39,15 +34,9 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(Request $request)
     {
         //
-
-        Category::create([
-            'name' => $request->name,
-        ]);
-        // Session::flash('message', 'Category created successfully.');
-        return redirect()->route('categories');
     }
 
     /**
@@ -70,9 +59,6 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         //
-        $category = Category::find($id);
-
-        return view('admin.categories.create')->with('category', $category);
     }
 
     /**
@@ -82,17 +68,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        $category = Category::find($id);
-
-        $category->update([
-
-            'name' => $request->name
-        ]);
-
-        return redirect()->route('categories');
     }
 
     /**
@@ -104,9 +82,5 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
-        $category = Category::find($id);
-        $category->delete();
-
-        return redirect()->route('categories');
     }
 }

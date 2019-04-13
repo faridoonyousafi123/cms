@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/category/create', [
 
@@ -67,4 +68,6 @@ Route::post('category/{id}', [
 Route::resource('posts', 'PostsController');
 Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.index');
 Route::put('restore-post/{id}', 'PostsController@restore')->name('restore-post');
+Route::resource('tags', 'TagsController');
+});
 

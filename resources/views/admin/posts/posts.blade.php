@@ -19,6 +19,9 @@
                     Published At
                 </th>
                 <th>
+                    Category
+                </th>
+                <th>
                     Edit
                 </th>
                 <th>
@@ -36,6 +39,13 @@
                     </td>
                     <td>
                         {{ $post->published_at }}
+                    </td>
+                    <td>
+                        @isset($post->category)
+                            <a href="{{ route('category.edit', $post->category->id) }}">
+                                {{ $post->category->name }}
+                            </a>
+                        @endisset
                     </td>
                     <td>
                         @if ($post->trashed())
