@@ -13,14 +13,15 @@
 
         <div class="card-body">
 
-            <form action="{{ isset($tag) ? route('tag.update', $tag->id ) : route('tag.store') }}" method="POST">
-
+            <form action="{{ isset($tag) ? route('tags.update', $tag->id ) : route('tags.store') }}" method="POST">
                 @csrf
-
+                @if (isset($tag))
+                    @method('PUT')
+                @endif
                 <div class="form-group">
 
-                    <label for="name">Name</label>
-                <input type="text" name="name" value="{{ isset($tag) ? $tag->name : '' }}" class="form-control">
+                    <label for="name">Title</label>
+                <input type="text" name="title" value="{{ isset($tag) ? $tag->title : '' }}" class="form-control">
                 </div>
                     <div class="form-group">
                         <div style="float:right;">

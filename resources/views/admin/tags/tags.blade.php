@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="d-flex justify-content-end p-2">
-        <a href="{{ route('tag.create') }}" style="float:right;"><button class="btn btn-success">Create a Tag</button></a>
+        <a href="{{ route('tags.create') }}" style="float:right;"><button class="btn btn-success">Create a Tag</button></a>
 </div>
 
 <div class="card">
@@ -39,11 +39,11 @@
 
               <tr>
                   <td>
-                      {{ $tag->name }}
+                      {{ $tag->title }}
                   </td>
 
                   <td>
-                    <a href="{{ route('tag.edit', ['id' => $tag->id ]) }}" class="btn btn-xs btn-info">
+                    <a href="{{ route('tags.edit', ['id' => $tag->id ]) }}" class="btn btn-xs btn-info">
                         Edit
                     </a>
                   </td>
@@ -63,6 +63,7 @@
 <!-- Modal -->
         <form action="" method="POST" id="deleteForm">
             @csrf
+            @method('DELETE')
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -97,7 +98,7 @@
 
 
         var form = document.getElementById('deleteForm');
-        form.action = "/tag/" + id
+        form.action = "/tags/" + id
         $('#deleteModal').modal('show');
     }
 
