@@ -16,9 +16,15 @@
 
           <th>
 
-               Name
+               Title
 
           </th>
+
+          <th>
+
+                Posts Count
+
+           </th>
 
           <th>
 
@@ -40,6 +46,10 @@
               <tr>
                   <td>
                       {{ $tag->title }}
+                  </td>
+
+                  <td>
+                        {{ $tag->posts()->count() }}
                   </td>
 
                   <td>

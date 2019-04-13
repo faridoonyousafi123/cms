@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use Illuminate\Support\Facades\Session;
 use \App\Category;
+use \App\Tag;
 
 class PostsController extends Controller
 {
@@ -35,7 +36,7 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return view('admin.posts.create')->with('categories', Category::all());
+        return view('admin.posts.create')->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -48,7 +49,7 @@ class PostsController extends Controller
     {
         //
         $image = $request->image->store('posts');
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
@@ -56,6 +57,9 @@ class PostsController extends Controller
             'published_at' => $request->published_at,
             'category_id' => $request->category_id,
             ]);
+        if($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
             return redirect()->route('posts.index');
     }
 
@@ -79,7 +83,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('admin.posts.create')->with('post', $post)->with('categories', Category::all());
+        return view('admin.posts.create')->with('post', $post)->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -98,6 +102,9 @@ class PostsController extends Controller
             $data['image'] = $image;
         }
         $post->update($data);
+        if($request->tags) {
+            $post->tags()->sync($request->tags);
+        }
         Session::flash('success', 'Post updated successfully');
         return redirect()->route('posts.index');
     }

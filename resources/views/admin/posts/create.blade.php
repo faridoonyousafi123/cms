@@ -39,6 +39,12 @@
                                         {{ $category->name }}
                                     </option>
                             @endforeach
+                        @else
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                    @endforeach
                         @endif
                     @else
                         @foreach ($categories as $category)
@@ -49,6 +55,24 @@
                     @endif
                 </select>
             </div>
+                @if (isset($tags))
+                    <div class="form-group">
+                        <label for="Tags">Tags</label>
+                        <select name="tags[]" id="tags" class="form-control" multiple>
+                            @foreach ($tags as $tag)
+                                    <option value="{{ $tag->id }}"
+                                        @if(isset($post))
+                                            @if($post->hasTag($tag->id))
+                                                selected
+                                            @endif
+                                        @endif
+                                        >
+                                        {{ $tag->title }}
+                                    </option>
+                            @endforeach
+                    </select>
+                    </div>
+                @endif
             <div class="form-group">
                 <label for="content">Published At</label>
                 <input type="text" name="published_at" id="published_at" value="{{ isset($post) ? $post->published_at : '' }}" class="form-control">
