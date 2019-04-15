@@ -71,3 +71,8 @@ Route::put('restore-post/{id}', 'PostsController@restore')->name('restore-post')
 Route::resource('tags', 'TagsController');
 });
 
+Route::middleware(['auth', 'verifyAdmin'])->group(function () {
+    Route::get('users', 'UsersController@index')->name('users.index');
+    Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
+});
+

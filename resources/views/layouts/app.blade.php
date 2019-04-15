@@ -92,11 +92,11 @@
 
                             <ul class="list-group">
 
-                                <li class="list-group-item">
-
-
-
-                                </li>
+                                @if(auth()->user()->isAdmin())
+                                    <li class="list-group-item">
+                                        <a href="{{ route('users.index') }}">Users</a>
+                                    </li>
+                                @endif
 
                                 <li class="list-group-item">
 
