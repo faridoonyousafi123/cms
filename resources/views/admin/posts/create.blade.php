@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('admin.partials.errors')
+@include('admin.partials.session')
 
 <div class="card">
     <div class="card-header">

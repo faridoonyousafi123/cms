@@ -72,6 +72,8 @@ Route::resource('tags', 'TagsController');
 });
 
 Route::middleware(['auth', 'verifyAdmin'])->group(function () {
+    Route::get('user/profile', 'UsersController@profile')->name('profile.index');
+    Route::put('user/profile', 'UsersController@update')->name('profile.update');
     Route::get('users', 'UsersController@index')->name('users.index');
     Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
 });

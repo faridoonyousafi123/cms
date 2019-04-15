@@ -60,6 +60,9 @@ class PostsController extends Controller
         if($request->tags) {
             $post->tags()->attach($request->tags);
         }
+
+            Session::flash('success', 'Post has been created successfully');
+
             return redirect()->route('posts.index');
     }
 
