@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Blog\PostsController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,8 @@ use App\Http\Controllers\Blog\PostsController;
 
 
 Route::get('/', 'WelcomeController@index')->name('welcome.index');
+Route::get('/blog/category/{category}', [PostsController::class, 'category'])->name('blog.category');
+Route::get('/blog/tag/{tag}', [PostsController::class, 'tag'])->name('blog.tag');
 Route::get('/post/{post}', [PostsController::class, 'show'])->name('blog.show');
 Auth::routes();
 

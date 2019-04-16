@@ -33,4 +33,12 @@ class Post extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeSearched($query) {
+        $search = request()->query('search');
+        If(!$search) {
+            return $query;
+        }
+        return $query->where('title', 'LIKE', '%' . $search . '%');
+    }
 }

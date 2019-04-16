@@ -43,6 +43,11 @@
       <div class="row">
         <div class="col-lg-8 mx-auto">
             {!! $post->content !!}
+
+        <div style="padding-top:20px">
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                <div class="addthis_inline_share_toolbox"></div>
+        </div>
         </div>
       </div>
 
